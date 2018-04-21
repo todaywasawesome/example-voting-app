@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: staging-voting-app-redis
+  annotations:
+    snapshot.alpha.kubernetes.io/snapshot: voting-redis-snap
+spec:
+  accessModes:
+     - ReadWriteOnce
+  storageClassName: stork-snapshot-sc
+  resources:
+    requests:
+      storage: 8Gi
