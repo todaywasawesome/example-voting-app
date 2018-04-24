@@ -64,11 +64,6 @@ steps:
     image: codefresh/plugin-helm:2.8.0
     commands:
       - bash -c 'external_ip=""; while [ -z $external_ip ]; do echo "Waiting for end point..."; external_ip=$(kubectl get svc staging-voting-app-vote --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}"); [ -z "$external_ip" ] && sleep 10; done; echo "End point ready-" && echo $external_ip; cf_export IP=$external_ip'
-  ExportVariables:
-    title: "Exporting variables..."
-    image: alpine
-    commands:
-      - echo "Exporting variables..."
   BuildingTestDockerImage:
     title: Building Test Docker Image
     type: build
@@ -86,14 +81,22 @@ steps:
           image: selenium/hub
           ports:
             - 4444
+          environment:
+            - SE_OPTS=-debug
+            - GRID_MAX_SESSION=5
         chrome_node:
-          image: selenium/node-chrome
+          image: selenium/node-chrome-debug
+          ports:
+            - 5900
+            - 5555
           command: bash -c "sleep 5 && /opt/bin/entry_point.sh"
           depends_on: 
             - selenium_hub
           environment:
             - HUB_HOST=selenium_hub
-            - REMOTE_HOST=http://selenium_hub:4444
+            - REMOTE_HOST=http://chrome_node:5555
+            - NODE_MAX_SESSION=5
+            - NODE_MAX_INSTANCES=5
     composition_candidates:
       test:
         image: 'r.cfcr.io/${{CODEFRESH_ACCOUNT}}/codefresh/example-voting-app-tests:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
