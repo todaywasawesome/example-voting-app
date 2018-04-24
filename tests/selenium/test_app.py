@@ -1,5 +1,6 @@
 import unittest
 import os
+import time
 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -17,11 +18,13 @@ class VoteTest(unittest.TestCase):
 
   def test_confirm_a(self):
     browser = self.browser
+    time.sleep(5)
     browser.get(url)
     self.assertTrue(self.is_element_present(By.NAME,"a"))
 
   def test_confirm_b(self):
     browser = self.browser
+    time.sleep(5)
     browser.get(url)
     self.assertTrue(self.is_element_present(By.NAME,"b"))
 
