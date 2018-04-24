@@ -19,15 +19,20 @@ class VoteTest(unittest.TestCase):
       desired_capabilities={'browserName': 'chrome'}
     )
 
-  def test_confirm_a(self):
+  def test_confirm_vote_element(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.is_element_present(By.CLASS_NAME,"a"))
+    self.assertTrue(self.is_element_present(By.NAME,"vote"))
 
-  def test_confirm_b(self):
+  def test_confirm_button_a(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.is_element_present(By.CLASS_NAME,"b"))
+    self.assertTrue(self.browser.find_element_by_xpath("//form[@name='choice'][@type='button'][@id='a']"))
+
+  def test_confirm_button_b(self):
+    browser = self.browser
+    browser.get("http://{}:80".format(ip))
+    self.assertTrue(self.browser.find_element_by_xpath("//form[@name='choice'][@type='button'][@id='b']"))
 
   def is_element_present(self, how, what):
     """
