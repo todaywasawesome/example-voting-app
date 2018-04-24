@@ -19,7 +19,7 @@ class VoteTest(unittest.TestCase):
       desired_capabilities={'browserName': 'chrome'}
     )
 
-  def test_confirm_button_a(self):
+  def test_confirm_choice_form(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
     self.assertTrue(self.browser.find_element_by_xpath("//form[@id='choice']"))
