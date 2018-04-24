@@ -27,12 +27,12 @@ class VoteTest(unittest.TestCase):
   def test_confirm_button_a(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.browser.find_element_by_xpath("//form[@id='choice'][@type='button'][@id='a']"))
+    self.assertTrue(self.browser.find_element_by_xpath("//form[@id='choice']/button[@id='a']"))
 
   def test_confirm_button_b(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.browser.find_element_by_xpath("//form[@id='choice'][@type='button'][@id='b']"))
+    self.assertTrue(self.browser.find_element_by_xpath("//form[@id='choice']/button[@id='b']"))
 
   def tear_down(self):
     self.browser.quit()
