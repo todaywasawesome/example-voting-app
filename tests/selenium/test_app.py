@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 url = os.getenv('URL')
 
 # Give Selenium Hub time to start
-time.sleep(30)
+time.sleep(15)
 
 class VoteTest(unittest.TestCase):
 

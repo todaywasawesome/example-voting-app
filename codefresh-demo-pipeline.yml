@@ -84,15 +84,16 @@ steps:
       services:
         selenium_hub:
           image: selenium/hub
-        firefox_node:
-          image: selenium/node-firefox
-          depends_on: 
-            - selenium_hub
+          ports:
+            - 4444
         chrome_node:
           image: selenium/node-chrome
-          command: bash -c "sleep 20 && /opt/bin/entry_point.sh"
+          command: bash -c "sleep 5 && /opt/bin/entry_point.sh"
           depends_on: 
             - selenium_hub
+          environment:
+            - HUB_HOST=selenium_hub
+            - REMOTE_HOST=http://selenium_hub:4444
     composition_candidates:
       test:
         image: 'r.cfcr.io/${{CODEFRESH_ACCOUNT}}/codefresh/example-voting-app-tests:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
@@ -101,10 +102,7 @@ steps:
         command: python ${{CF_VOLUME_PATH}}/${{CF_REPO_NAME}}/tests/selenium/test_app.py
         volumes:
           - '${{CF_VOLUME_NAME}}:/codefresh/volume'
-    composition_variables:
-      - HUB_HOST=selenium_hub
-      - REMOTE_HOST=http://selenium_hub:4444
-    add_flow_volume_to_composition: true  
+    add_flow_volume_to_composition: true
   DeployProd:
     title: Deploy Chart to Production
     image: codefresh/plugin-helm:2.8.0 # You need to make sure you've set this to the correct version of Tiller installed on your helm init
