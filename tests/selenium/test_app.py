@@ -21,7 +21,9 @@ class VoteTest(unittest.TestCase):
 
   def test_title(self):
     browser = self.browser
-    browser.get("http://{}".format(ip))
+    url = "http://{}".format(ip)
+    browser.get(url)
+    print url
     self.assertIn("Cats", browser.title)
 
   # def test_confirm_choice_form(self):
