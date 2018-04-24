@@ -8,6 +8,9 @@ from selenium.webdriver.common.by import By
 
 url = os.getenv('URL')
 
+# Give Selenium Hub time to start
+time.sleep(30)
+
 class VoteTest(unittest.TestCase):
 
   def setUp(self):
@@ -18,13 +21,11 @@ class VoteTest(unittest.TestCase):
 
   def test_confirm_a(self):
     browser = self.browser
-    time.sleep(30)
     browser.get(url)
     self.assertTrue(self.is_element_present(By.NAME,"a"))
 
   def test_confirm_b(self):
     browser = self.browser
-    time.sleep(5)
     browser.get(url)
     self.assertTrue(self.is_element_present(By.NAME,"b"))
 
