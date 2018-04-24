@@ -32,7 +32,7 @@ class VoteTest(unittest.TestCase):
   def test_confirm_button_b(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.browser.find_element_by_id('b')
+    self.assertTrue(self.browser.find_element_by_id('b'))
 
   def tear_down(self):
     self.browser.quit()
