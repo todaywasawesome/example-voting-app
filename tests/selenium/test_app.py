@@ -19,30 +19,20 @@ class VoteTest(unittest.TestCase):
       desired_capabilities={'browserName': 'chrome'}
     )
 
-  def test_confirm_vote_element(self):
+  def test_confirm_button_a(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.is_element_present(By.NAME,"vote"))
+    self.assertTrue(self.browser.find_element_by_xpath("//form[@id='choice']"))
 
   def test_confirm_button_a(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.browser.find_element_by_xpath("//form[@name='choice'][@type='button'][@id='a']"))
+    self.assertTrue(self.browser.find_element_by_xpath("//form[@id='choice'][@type='button'][@id='a']"))
 
   def test_confirm_button_b(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.browser.find_element_by_xpath("//form[@name='choice'][@type='button'][@id='b']"))
-
-  def is_element_present(self, how, what):
-    """
-    Helper method to confirm the presence of an element on page
-    :params how: By locator type
-    :params what: locator value
-    """
-    try: self.browser.find_element(by=how, value=what)
-    except NoSuchElementException: return False
-    return True
+    self.assertTrue(self.browser.find_element_by_xpath("//form[@id='choice'][@type='button'][@id='b']"))
 
   def tear_down(self):
     self.browser.quit()
