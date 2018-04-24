@@ -7,8 +7,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 ip = os.getenv('IP')
-sl_username = ('SAUCE_USERNAME')
-sl_access_key = ('SAUCE_ACCESS_KEY')
+sl_username = os.getenv('SAUCE_USERNAME')
+sl_access_key = os.getenv('SAUCE_ACCESS_KEY')
 
 # Give Selenium Hub time to start
 time.sleep(15)
