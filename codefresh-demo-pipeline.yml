@@ -90,6 +90,7 @@ steps:
             - selenium_hub
         chrome_node:
           image: selenium/node-chrome
+          command: bash -c "sleep 20 && /opt/bin/entry_point.sh"
           depends_on: 
             - selenium_hub
     composition_candidates:
