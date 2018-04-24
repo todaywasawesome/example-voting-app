@@ -17,12 +17,12 @@ class VoteTest(unittest.TestCase):
       desired_capabilities=caps
     )
 
-  def confirm_a(self):
+  def test_confirm_a(self):
     browser = self.browser
     browser.get(url)
     self.assertTrue(self.is_element_present(By.NAME,"a"))
 
-  def confirm_b(self):
+  def test_confirm_b(self):
     browser = self.browser
     browser.get(url)
     self.assertTrue(self.is_element_present(By.NAME,"b"))
