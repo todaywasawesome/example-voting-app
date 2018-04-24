@@ -72,7 +72,7 @@ steps:
   BuildingTestDockerImage:
     title: Building Test Docker Image
     type: build
-    image_name: codefresh/example-voting-app-vote-tests
+    image_name: codefresh/example-voting-app-tests
     working_directory: ./
     dockerfile: Dockerfile
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
@@ -86,19 +86,23 @@ steps:
           image: selenium/hub
         firefox_node:
           image: selenium/node-firefox
+          depends_on: 
+            - selenium_hub
         chrome_node:
           image: selenium/node-chrome
+          depends_on: 
+            - selenium_hub
     composition_candidates:
       test:
         image: 'r.cfcr.io/${{CODEFRESH_ACCOUNT}}/codefresh/example-voting-app-tests:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
-        volumes:
-          - /dev/shm:/dev/shm
         environment:
           URL: ${{URL}}
-        command: python ${{CF_VOLUME_PATH}}/vote/tests/selenium/test_app.py
+        command: python ${{CF_VOLUME_PATH}}/${{CF_REPO_NAME}}/tests/selenium/test_app.py
+        volumes:
+          - '${{CF_VOLUME_NAME}}:/codefresh/volume'
     composition_variables:
-      - HUB_PORT_4444_TCP_ADDR=selenium_hub
-      - HUB_PORT_4444_TCP_PORT=4444      
+      - HUB_HOST=selenium_hub
+    add_flow_volume_to_composition: true  
   DeployProd:
     title: Deploy Chart to Production
     image: codefresh/plugin-helm:2.8.0 # You need to make sure you've set this to the correct version of Tiller installed on your helm init
