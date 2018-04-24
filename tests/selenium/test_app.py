@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
-url = os.getenv('URL')
+ip = os.getenv('ip')
 
 # Give Selenium Hub time to start
 time.sleep(15)
@@ -21,12 +21,12 @@ class VoteTest(unittest.TestCase):
 
   def test_confirm_a(self):
     browser = self.browser
-    browser.get(url)
+    browser.get("http://{}:80".format(ip))
     self.assertTrue(self.is_element_present(By.NAME,"a"))
 
   def test_confirm_b(self):
     browser = self.browser
-    browser.get(url)
+    browser.get("http://{}:80".format(ip))
     self.assertTrue(self.is_element_present(By.NAME,"b"))
 
   def is_element_present(self, how, what):
