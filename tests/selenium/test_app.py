@@ -22,17 +22,17 @@ class VoteTest(unittest.TestCase):
   def test_confirm_choice_form(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.browser.find_element_by_xpath("/html/body/dev[@id='content-container']/div[@id='content-container-center']/form[@id='choice']"))
+    self.assertTrue(self.browser.find_element_by_xpath("/html/body/div[@id='content-container']/div[@id='content-container-center']/form[@id='choice']"))
 
   def test_confirm_button_a(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.browser.find_element_by_xpath("/html/body/dev[@id='content-container']/div[@id='content-container-center']/form[@id='choice']/button[@id='a']"))
+    self.assertTrue(self.browser.find_element_by_xpath("/html/body/div[@id='content-container']/div[@id='content-container-center']/form[@id='choice']/button[@id='a']"))
 
   def test_confirm_button_b(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.browser.find_element_by_xpath("/html/body/dev[@id='content-container']/div[@id='content-container-center']/form[@id='choice']/button[@id='b']"))
+    self.assertTrue(self.browser.find_element_by_xpath("/html/body/div[@id='content-container']/div[@id='content-container-center']/form[@id='choice']/button[@id='b']"))
 
   def tear_down(self):
     self.browser.quit()
