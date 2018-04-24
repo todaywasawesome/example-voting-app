@@ -73,39 +73,14 @@ steps:
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
   FunctionalTests:
     title: Functional Tests
-    type: composition
-    composition:
-      version: '2'
-      services:
-        selenium_hub:
-          image: selenium/hub
-          ports:
-            - 4444
-          environment:
-            - SE_OPTS=-debug
-            - GRID_MAX_SESSION=5
-        chrome_node:
-          image: selenium/node-chrome-debug
-          ports:
-            - 5900
-            - 5555
-          command: bash -c "sleep 5 && /opt/bin/entry_point.sh"
-          depends_on: 
-            - selenium_hub
-          environment:
-            - HUB_HOST=selenium_hub
-            - REMOTE_HOST=http://chrome_node:5555
-            - NODE_MAX_SESSION=5
-            - NODE_MAX_INSTANCES=5
-    composition_candidates:
-      test:
-        image: 'r.cfcr.io/${{CODEFRESH_ACCOUNT}}/codefresh/example-voting-app-tests:${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
-        environment:
-          IP: ${{IP}}
-        command: python ${{CF_VOLUME_PATH}}/${{CF_REPO_NAME}}/tests/selenium/test_app.py
-        volumes:
-          - '${{CF_VOLUME_NAME}}:/codefresh/volume'
-    add_flow_volume_to_composition: true
+    image: ${{BuildingTestDockerImage}}
+    working_directory: ./
+    environment:
+      - IP=${{IP}}
+      - SAUCE_USERNAME=${{SAUCE_USERNAME}}
+      - SAUCE_ACCESS_KEY=${{SAUCE_ACCESS_KEY}}
+    commands: 
+      - python ./tests/selenium/test_app.py
   DeployProd:
     title: Deploy Chart to Production
     image: codefresh/plugin-helm:2.8.0 # You need to make sure you've set this to the correct version of Tiller installed on your helm init

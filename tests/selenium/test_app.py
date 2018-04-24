@@ -7,6 +7,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 ip = os.getenv('IP')
+sl_username = ('SAUCE_USERNAME')
+sl_access_key = ('SAUCE_ACCESS_KEY')
 
 # Give Selenium Hub time to start
 time.sleep(15)
@@ -15,7 +17,7 @@ class VoteTest(unittest.TestCase):
 
   def setUp(self):
     self.browser = webdriver.Remote(
-      command_executor='http://selenium_hub:4444/wd/hub',
+      command_executor='http://{}:{}@ondemand.saucelabs.com:80/wd/hub'.format(sl_usermame,sl_access_key),
       desired_capabilities={'browserName': 'chrome'}
     )
 
