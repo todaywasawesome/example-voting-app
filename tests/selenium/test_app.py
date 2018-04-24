@@ -22,12 +22,12 @@ class VoteTest(unittest.TestCase):
   def test_confirm_a(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.is_element_present(By.CLASS,"a"))
+    self.assertTrue(self.is_element_present(By.CLASS_NAME,"a"))
 
   def test_confirm_b(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
-    self.assertTrue(self.is_element_present(By.CLASS,"b"))
+    self.assertTrue(self.is_element_present(By.CLASS_NAME,"b"))
 
   def is_element_present(self, how, what):
     """
