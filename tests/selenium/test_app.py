@@ -17,7 +17,7 @@ class VoteTest(unittest.TestCase):
 
   def setUp(self):
     self.browser = webdriver.Remote(
-      command_executor='http://{}:{}@ondemand.saucelabs.com:80/wd/hub'.format(sl_usermame,sl_access_key),
+      command_executor='http://{}:{}@ondemand.saucelabs.com:80/wd/hub'.format(sl_username, sl_access_key),
       desired_capabilities={'browserName': 'chrome'}
     )
 
