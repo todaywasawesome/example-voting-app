@@ -102,6 +102,7 @@ steps:
           - '${{CF_VOLUME_NAME}}:/codefresh/volume'
     composition_variables:
       - HUB_HOST=selenium_hub
+      - REMOTE_HOST=http://selenium_hub:4444
     add_flow_volume_to_composition: true  
   DeployProd:
     title: Deploy Chart to Production
