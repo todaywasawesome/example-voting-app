@@ -21,7 +21,7 @@ class VoteTest(unittest.TestCase):
 
   def test_title(self):
     browser = self.browser
-    browser.get("http://{}:80".format(ip))
+    browser.get("http://{}".format(ip))
     self.assertIn("Cats", browser.title)
 
   # def test_confirm_choice_form(self):
@@ -43,4 +43,4 @@ class VoteTest(unittest.TestCase):
     self.browser.quit()
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
