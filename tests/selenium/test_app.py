@@ -21,6 +21,10 @@ class VoteTest(unittest.TestCase):
       desired_capabilities={'browserName': 'chrome'}
     )
 
+  def tearDown(self):
+    with open('test1.txt', 'a') as test_results:
+      test_results.write("https://saucelabs.com/beat/tests/" + self.browser.session_id)
+
   def test_confirm_title(self):
     browser = self.browser
     browser.get("http://{}:80".format(ip))
