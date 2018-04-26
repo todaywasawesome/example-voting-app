@@ -12,7 +12,7 @@ ip = os.getenv('IP')
 sl_username = os.getenv('SAUCE_USERNAME')
 sl_access_key = os.getenv('SAUCE_ACCESS_KEY')
 bid = os.getenv('COMMIT_SHA')
-jobId = null
+
 
 # Give Selenium Hub time to start
 time.sleep(15)
@@ -23,13 +23,12 @@ class VoteTest(unittest.TestCase):
     self.browser = webdriver.Remote(
       command_executor='http://{}:{}@ondemand.saucelabs.com:80/wd/hub'.format(sl_username, sl_access_key),
       desired_capabilities={'browserName': 'chrome', 'build': bid }
-      jobId = self.driver.session_id
     )
 
   def tearDown(self):
     with open('test1.txt', 'a') as test_results:
       test_results.write("https://saucelabs.com/beta/tests/" + self.browser.session_id+ ",")
-      
+      jobId = self.webdriver.session_id
       hmac.new(sl_username+ ":" + sl_access_key, jobId, md5).hexdigest()
       test_results.write(" https://saucelabs.com/beta/builds/" + jobId)
 
