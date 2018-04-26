@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 ip = os.getenv('IP')
 sl_username = os.getenv('SAUCE_USERNAME')
 sl_access_key = os.getenv('SAUCE_ACCESS_KEY')
+bid = os.getenv('COMMIT_SHA')
 
 # Give Selenium Hub time to start
 time.sleep(15)
@@ -18,7 +19,7 @@ class VoteTest(unittest.TestCase):
   def setUp(self):
     self.browser = webdriver.Remote(
       command_executor='http://{}:{}@ondemand.saucelabs.com:80/wd/hub'.format(sl_username, sl_access_key),
-      desired_capabilities={'browserName': 'chrome'}
+      desired_capabilities={'browserName': 'chrome', 'build': bid }
     )
 
   def tearDown(self):
