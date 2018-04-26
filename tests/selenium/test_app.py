@@ -27,7 +27,7 @@ class VoteTest(unittest.TestCase):
   def tearDown(self):
     with open('test1.txt', 'a') as test_results:
       test_results.write("https://saucelabs.com/beta/tests/" + self.browser.session_id+ ",")
-      job_id = @driver.session_id
+      job_id = self.driver.session_id
       hmac.new(sl_username+ ":" + sl_access_key, job_id, md5).hexdigest()
       test_results.write(" https://saucelabs.com/beta/builds/" + job_id)
 
