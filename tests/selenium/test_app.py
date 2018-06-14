@@ -28,15 +28,15 @@ class VoteTest(unittest.TestCase):
   def tearDown(self):
     with open('test1.txt', 'a') as test_results:
       test_results.write("https://saucelabs.com/beta/tests/" + self.browser.session_id+ ",")
-      jobId = self.webdriver.session_id
+      # jobId = self.webdriver.session_id
       hmac.new(sl_username+ ":" + sl_access_key, jobId, md5).hexdigest()
       test_results.write(" https://saucelabs.com/beta/builds/" + jobId)
 
-  # def test_confirm_title(self):
-  #   browser = self.browser
-  #   browser.get("http://{}:80".format(ip))
-  #   self.assertIn("Cats vs Dogs!", browser.title)
-  #   browser.quit()
+  def test_confirm_title(self):
+    browser = self.browser
+    browser.get("http://{}:80".format(ip))
+    #self.assertIn("Cats vs Dogs!", browser.title)
+    browser.quit()
 
   def test_confirm_choice_form(self):
     browser = self.browser
