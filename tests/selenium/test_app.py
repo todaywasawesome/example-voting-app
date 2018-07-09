@@ -11,7 +11,7 @@ from hashlib import md5
 ip = os.getenv('IP')
 sl_username = os.getenv('SAUCE_USERNAME')
 sl_access_key = os.getenv('SAUCE_ACCESS_KEY')
-bid = os.getenv('COMMIT_SHA')
+bid = os.getenv('BUILD')
 
 
 # Give Selenium Hub time to start
@@ -29,7 +29,7 @@ class VoteTest(unittest.TestCase):
     with open('test1.txt', 'a') as test_results:
       test_results.write("https://saucelabs.com/beta/tests/" + self.browser.session_id+ ",")
       # jobId = self.webdriver.session_id
-      #hmac.new(sl_username+ ":" + sl_access_key, jobId, md5).hexdigest()
+      hmac.new(sl_username+ ":" + sl_access_key, jobId, md5).hexdigest()
       #test_results.write(" https://saucelabs.com/beta/builds/" + jobId)
 
   def test_confirm_title(self):
