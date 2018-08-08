@@ -138,7 +138,7 @@ steps:
             - UI_Success: "${{SUCCESSRATE}}%"
   DeployProd:
     title: Deploy Chart to Production
-    image: codefresh/plugin-helm:2.8.0 # You need to make sure you've set this to the correct version of Tiller installed on your helm init
+    image: codefresh/cfstep-helm # You need to make sure you've set this to the correct version of Tiller installed on your helm init
     working_directory: ./
     environment:
       - CHART_NAME=./helm/
