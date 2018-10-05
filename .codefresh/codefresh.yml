@@ -14,7 +14,7 @@
 version: '1.0'
 stages:
 - "Deploy Staging"
-- "Functional Tests"
+- "Functional Testing"
 - "Deploy to Production"
 steps:
   BuildMicroServices:
@@ -126,16 +126,16 @@ steps:
             - CF_QUALITY: false
   CalulcateTests:
     title: Caculate Test Passed
-    image: frolvlad/alpine-bash
     stage: "Functional Tests"
+    image: frolvlad/alpine-bash
     commands:
       - SUCCESSRATE=`echo "scale=2; (${TESTS} / (${TESTS}-${TESTSFAILED}))*100" | bc`
       - echo $SUCCESSRATE
       - cf_export SUCCESSRATE=$SUCCESSRATE
   CollectTestResults:
     title: Capture Results
-    stage: "Functional Tests"
     image: codefresh/cli
+    stage: "Functional Tests"
     commands:
       - codefresh --help
       - echo ${SUCCESSRATE}
