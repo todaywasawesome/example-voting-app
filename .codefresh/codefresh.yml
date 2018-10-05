@@ -12,6 +12,10 @@
 # Create KUBE_NAMESPACE variable with Kubernetes namespace for Release
 # TODO Turn into README
 version: '1.0'
+stages:
+-"Deploy Staging"
+-"Functional Tests"
+-"Deploy to Production"
 steps:
   BuildMicroServices:
     title: Build Docker Images
@@ -28,6 +32,7 @@ steps:
           debug: '"${{DEBUG}}" ==  "false"'
   HelmUpgrade:
     title: Create and Deploy Staging Instance
+    stage: "Deploy Staging"
     image: codefresh/cfstep-helm # You need to make sure you've set this to the correct version of Tiller installed on your helm init
     working_directory: ./
     environment:
@@ -58,6 +63,7 @@ steps:
           debug: '"${{DEBUG}}" ==  "false"'
   GrabEndPoint:
     title: Waiting for Endpoint
+    stage: "Deploy Staging"
     image: codefresh/cfstep-helm
     environment:
       - KUBE_CONTEXT=${{KUBE_CONTEXT}}
@@ -70,6 +76,7 @@ steps:
           debug: '"${{DEBUG}}" ==  "false"'
   BuildingTestDockerImage:
     title: Building Testing Images
+    stage: "Functional Tests"
     type: build
     image_name: codefresh/example-voting-app-tests
     working_directory: ./
@@ -77,6 +84,7 @@ steps:
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
   RunTestim:
     title: Functional Tests (UI, Security, Performance)
+    stage: "Functional Tests"
     image: testim/docker-cli
     environment:
       - token=${{TESTIM_TOKEN}}
@@ -119,12 +127,14 @@ steps:
   CalulcateTests:
     title: Caculate Test Passed
     image: frolvlad/alpine-bash
+    stage: "Functional Tests"
     commands:
       - SUCCESSRATE=`echo "scale=2; (${TESTS} / (${TESTS}-${TESTSFAILED}))*100" | bc`
       - echo $SUCCESSRATE
       - cf_export SUCCESSRATE=$SUCCESSRATE
   CollectTestResults:
     title: Capture Results
+    stage: "Functional Tests"
     image: codefresh/cli
     commands:
       - codefresh --help
@@ -138,6 +148,7 @@ steps:
             - UI_Success: "${{SUCCESSRATE}}%"
   DeployProd:
     title: Deploy Chart to Production
+    stage: "Deploy to Production"
     image: codefresh/cfstep-helm # You need to make sure you've set this to the correct version of Tiller installed on your helm init
     working_directory: ./
     environment:
