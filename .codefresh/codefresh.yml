@@ -14,8 +14,8 @@
 version: '1.0'
 stages:
 - "Deploy Staging"
-- "Functional Testing"
-- "Deploy to Production"
+- "Functional Tests"
+- "Deploy Production"
 steps:
   BuildMicroServices:
     title: Build Docker Images
@@ -134,8 +134,8 @@ steps:
       - cf_export SUCCESSRATE=$SUCCESSRATE
   CollectTestResults:
     title: Capture Results
-    image: codefresh/cli
     stage: "Functional Tests"
+    image: codefresh/cli
     commands:
       - codefresh --help
       - echo ${SUCCESSRATE}
@@ -148,7 +148,7 @@ steps:
             - UI_Success: "${{SUCCESSRATE}}%"
   DeployProd:
     title: Deploy Chart to Production
-    stage: "Deploy to Production"
+    stage: "Deploy Production"
     image: codefresh/cfstep-helm # You need to make sure you've set this to the correct version of Tiller installed on your helm init
     working_directory: ./
     environment:
