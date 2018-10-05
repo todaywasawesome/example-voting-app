@@ -13,9 +13,9 @@
 # TODO Turn into README
 version: '1.0'
 stages:
--"Deploy Staging"
--"Functional Tests"
--"Deploy to Production"
+- "Deploy Staging"
+- "Functional Tests"
+- "Deploy to Production"
 steps:
   BuildMicroServices:
     title: Build Docker Images
