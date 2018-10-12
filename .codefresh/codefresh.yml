@@ -76,7 +76,7 @@ steps:
           debug: '"${{DEBUG}}" ==  "false"'
   BuildingTestDockerImage:
     title: Building Testing Images
-    stage: "Functional Tests"
+    stage: "Functional Tests" 
     type: build
     image_name: codefresh/example-voting-app-tests
     working_directory: ./
